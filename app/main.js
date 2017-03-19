@@ -65,11 +65,9 @@ Leap.loop({ hand: function(hand) {
 
     // First, determine if grabbing pose or not
     isGrabbing = false;
-    var grabbedShip = null;
 
     var grabStrength = hand.grabStrength;
     console.log('grabStrength'+ hand.grabStrength);
-    var offset;
     if(grabStrength > .75)
     {
       isGrabbing = true;
@@ -80,7 +78,7 @@ Leap.loop({ hand: function(hand) {
       console.log('getting ship and offset');
       var shipandoffset = getIntersectingShipAndOffset(cursorPosition);
       grabbedShip = shipandoffset.ship;
-      offset = shipandoffset.offset;
+      grabbedOffset = shipandoffset.offset;
 
     }
 
@@ -89,9 +87,9 @@ Leap.loop({ hand: function(hand) {
     // TODO: Move the ship
     else if (grabbedShip && isGrabbing) {
       console.log('have ship, moving ship');
-      grabbedShip.setScreenPosition([cursorPosition[0]+offset[0], cursorPosition[1]+offset[1]]);
+      grabbedShip.setScreenPosition([cursorPosition[0]+grabbedOffset[0], cursorPosition[1]+grabbedOffset[1]]);
       console.log(hand.roll());
-      console.log(offset);
+      console.log(grabbedOffset);
       grabbedShip.setScreenRotation(hand.roll());
     }
 
