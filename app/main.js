@@ -334,7 +334,7 @@ var registerCpuShot = function(playerResponse) {
       }
       computerMissesInARow += 1;
       computerHitsInARow = 0;
-      if (computerHitsInARow >= 2) {
+      if (computerMissesInARow >= 2) {
         generateSpeech('Stop running away this is so annoying')
       } else {
         generateSpeech('Next time I will find you');
