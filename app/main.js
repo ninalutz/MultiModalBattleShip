@@ -7,7 +7,14 @@ var cursor = new Cursor();
 
 var controller = new Leap.Controller();
 controller.connect();
-emitter.setMaxListeners(emitter.getMaxListeners() + 2);
+
+const EventEmitter = require('events')
+const emitter = new MyEmitter();
+
+emitter.setMaxListeners(emitter.getMaxListeners() + 1);
+emitter.once('event', () => {
+  emitter.setMaxListeners(Math.max(emitter.getMaxListeners() - 1, 0));
+});
 
 // UI SETUP
 setupUserInterface();
