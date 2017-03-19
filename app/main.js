@@ -196,9 +196,9 @@ var processSpeech = function(transcript) {
       // TODO: 4.5, CPU's turn
       // Detect the player's response to the CPU's shot: hit, miss, you sunk my ..., game over
       // and register the CPU's shot if it was said
-      var saidSomething = userSaid(transcript, ['hit', 'miss', 'sunk', 'game over']);
+      var saidSomething = userSaid(transcript, ['hit', 'Miss', 'miss', 'sunk', 'game over']);
       var saidHit = userSaid(transcript, ['hit']);
-      var saidMiss = userSaid(transcript, ['miss']);
+      var saidMiss = userSaid(transcript, ['miss', 'Miss']);
       var saidSunk = userSaid(transcript, ['sunk']);
       var saidOver = userSaid(transcript, ['game over']);
       if (saidSomething) {
