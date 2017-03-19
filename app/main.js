@@ -8,7 +8,7 @@ var cursor = new Cursor();
 var controller = new Leap.Controller();
 controller.connect();
 
-//const EventEmitter = require('events')
+const EventEmitter = require('events')
 const emitter = new MyEmitter();
 
 emitter.setMaxListeners(emitter.getMaxListeners() + 1);
@@ -46,10 +46,12 @@ Leap.loop({ hand: function(hand) {
   //selectedTile = ?
   controller.use('screenPosition', { scale: LEAPSCALE}, {positioning: 'absolute'}).on('frame', function(frame) {
     var hand;
+    console.log("controller test");
     if(hand = frame.hands[0]){
       const x = hand.screenPosition()[0];
       const y = hand.screenPosition()[1];
       cursorPosition = [x,y];
+      console.log("x,y :"+x+" "+y);
       cursor.setScreenPosition(cursorPosition);
     }
   })
