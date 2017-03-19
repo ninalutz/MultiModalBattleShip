@@ -46,11 +46,9 @@ Leap.loop({ hand: function(hand) {
   // TODO: 4.1
   // Get the tile that the player is currently selecting, and highlight it
   //selectedTile = ?
-  console.log(hand);
   const x = hand.screenPosition()[0];
   const y = hand.screenPosition()[1] + 570;
   cursorPosition = [x,y];
-  console.log("x,y :"+x+" "+y);
   cursor.setScreenPosition(cursorPosition);
 
   tile = getIntersectingTile(cursorPosition);
@@ -70,6 +68,7 @@ Leap.loop({ hand: function(hand) {
     var grabbedShip = null;
 
     var grabStrength = hand.grabStrength;
+    console.log('grabStrength'+ hand.grabStrength);
     var offset;
     if(grabStrength > .75)
     {
