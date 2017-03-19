@@ -177,7 +177,8 @@ var processSpeech = function(transcript) {
     if (gameState.isPlayerTurn()) {
       // TODO: 4.4, Player's turn
       // Detect the 'fire' command, and register the shot if it was said
-      if (false) {
+      saidFire = userSaid(transcript, ['fire']);
+      if (saidFire) {
         registerPlayerShot();
 
         processed = true;
@@ -205,6 +206,7 @@ var processSpeech = function(transcript) {
 var registerPlayerShot = function() {
   // TODO: CPU should respond if the shot was off-board
   if (!selectedTile) {
+    generateSpeech('You can not fire off board');
   }
 
   // If aiming at a tile, register the player's shot
@@ -218,16 +220,24 @@ var registerPlayerShot = function() {
     // TODO: Generate CPU feedback in three cases
     // Game over
     if (result.isGameOver) {
+      generateSpeech('game over');
       gameState.endGame("player");
       return;
     }
     // Sunk ship
     else if (result.sunkShip) {
+
       var shipName = result.sunkShip.get('type');
+      generateSpeech('you sunk my ' + shipName);
     }
     // Hit or miss
     else {
       var isHit = result.shot.get('isHit');
+      if (isHit){
+        generateSpeech('hit');
+      } else {
+        generateSpeech('miss');
+      }
     }
 
     if (!result.isGameOver) {
