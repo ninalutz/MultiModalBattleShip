@@ -15,7 +15,7 @@ var TILESIZE = Math.ceil(BOARDSIZE / NUMTILES);
 var CURSORSIZE = 20;
 var TURNDELAY = 2500;
 
-var VOICEINDEX = 3; // UK British Female
+var VOICEINDEX = 5; // UK British Female
 var LEAPSCALE = 0.6;
-var DEBUGSPEECH = true;
-var SKIPSETUP = true;
+var DEBUGSPEECH = false;
+var SKIPSETUP = false;

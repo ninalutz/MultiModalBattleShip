@@ -72,7 +72,6 @@ Leap.loop({ hand: function(hand) {
     isGrabbing = false;
 
     var grabStrength = hand.grabStrength;
-    console.log('grabStrength'+ hand.grabStrength);
     if(grabStrength > .75)
     {
       isGrabbing = true;
@@ -80,7 +79,6 @@ Leap.loop({ hand: function(hand) {
     // Grabbing, but no selected ship yet. Look for one.
     // TODO: Update grabbedShip/grabbedOffset if the user is hovering over a ship
     if (!grabbedShip && isGrabbing) {
-      console.log('getting ship and offset');
       var shipandoffset = getIntersectingShipAndOffset(cursorPosition);
       grabbedShip = shipandoffset.ship;
       grabbedOffset = shipandoffset.offset;
@@ -91,10 +89,7 @@ Leap.loop({ hand: function(hand) {
     // Has selected a ship and is still holding it
     // TODO: Move the ship
     else if (grabbedShip && isGrabbing) {
-      console.log('have ship, moving ship');
       grabbedShip.setScreenPosition([cursorPosition[0]-grabbedOffset[0], cursorPosition[1]-grabbedOffset[1]]);
-      console.log(hand.roll());
-      console.log(grabbedOffset);
       grabbedShip.setScreenRotation(-hand.roll());
     }
 
@@ -172,7 +167,6 @@ var processSpeech = function(transcript) {
     // Detect the 'start' command, and start the game if it was said
     saidStart = userSaid(transcript, ['start']);
     if (saidStart) {
-      console.log('said start, starting game');
       gameState.startGame();
       processed = true;
     }
@@ -180,7 +174,6 @@ var processSpeech = function(transcript) {
 
   else if (gameState.get('state') == 'playing') {
     if (gameState.isPlayerTurn()) {
-      console.log('player turn');
       // TODO: 4.4, Player's turn
       // Detect the 'fire' command, and register the shot if it was said
       saidFire = userSaid(transcript, ['fire']);
@@ -192,7 +185,6 @@ var processSpeech = function(transcript) {
     }
 
     else if (gameState.isCpuTurn() && gameState.waitingForPlayer()) {
-      console.log('cpu turb');
       // TODO: 4.5, CPU's turn
       // Detect the player's response to the CPU's shot: hit, miss, you sunk my ..., game over
       // and register the CPU's shot if it was said
@@ -279,11 +271,7 @@ var registerPlayerShot = function() {
 
     if (!result.isGameOver) {
       // TODO: Uncomment nextTurn to move onto the CPU's turn
-      console.log('ending player turn');
-      console.log(gameState.isCpuTurn());
       nextTurn();
-      console.log(gameState.isCpuTurn());
-      console.log(gameState.waitingForPlayer());
     }
   }
 };
@@ -294,13 +282,11 @@ var cpuShot;
 var generateCpuShot = function() {
   // Generate a random CPU shot
   cpuShot = gameState.getCpuShot();
-  console.log(cpuShot);
   var tile = cpuShot.get('position');
   var rowName = ROWNAMES[tile.row]; // e.g. "A"
   var colName = COLNAMES[tile.col]; // e.g. "5"
 
   // TODO: Generate speech and visual cues for CPU shot
-  console.log('cpu firing at '+rowName+' '+colName);
   generateSpeech('fire '+rowName+' '+colName);
   blinkTile(tile);
 };
@@ -358,7 +344,6 @@ var registerCpuShot = function(playerResponse) {
 
   if (!result.isGameOver) {
     // TODO: Uncomment nextTurn to move onto the player's next turn
-    console.log('ending cpu turn');
     nextTurn();
   }
 };
