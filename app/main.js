@@ -189,8 +189,9 @@ var processSpeech = function(transcript) {
       // TODO: 4.5, CPU's turn
       // Detect the player's response to the CPU's shot: hit, miss, you sunk my ..., game over
       // and register the CPU's shot if it was said
-      if (false) {
-        var response = "playerResponse";
+      saidSomething = userSaid(transcript['hit', 'miss', 'sunk', 'game over'])
+      if (saidSomething) {
+        var response = transcript;
         registerCpuShot(response);
 
         processed = true;
@@ -259,6 +260,8 @@ var generateCpuShot = function() {
   var colName = COLNAMES[tile.col]; // e.g. "5"
 
   // TODO: Generate speech and visual cues for CPU shot
+  generateSpeech('fire '+rowName+' '+colName);
+  blinkTile(tile);
 };
 
 // TODO: 4.5, CPU's turn
@@ -275,16 +278,23 @@ var registerCpuShot = function(playerResponse) {
   // TODO: Generate CPU feedback in three cases
   // Game over
   if (result.isGameOver) {
+    generateSpeech('I won');
     gameState.endGame("cpu");
     return;
   }
   // Sunk ship
   else if (result.sunkShip) {
+    generateSpeech('Awesome')
     var shipName = result.sunkShip.get('type');
   }
   // Hit or miss
   else {
     var isHit = result.shot.get('isHit');
+    if (isHit) {
+      generateSpeech('I am coming for you');
+    } else {
+      generateSpeech('Next time I will find you')
+    }
   }
 
   if (!result.isGameOver) {
