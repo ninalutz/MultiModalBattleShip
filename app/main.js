@@ -54,7 +54,7 @@ Leap.loop({ hand: function(hand) {
   cursor.setScreenPosition(cursorPosition);
 
   tile = getIntersectingTile(cursorPosition);
-  highlightTile(tile, YELLOW);
+  highlightTile(tile, Colors.YELLOW);
 
   // SETUP mode
   if (gameState.get('state') == 'setup') {
