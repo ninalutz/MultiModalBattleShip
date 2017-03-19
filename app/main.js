@@ -38,24 +38,19 @@ Leap.loop({ hand: function(hand) {
   // TODO: 4.1, Moving the cursor with Leap data
   // Use the hand data to control the cursor's screen position
 
-  var cursorPosition = [0, 0];
-  cursor.setScreenPosition(cursorPosition);
+  // var cursorPosition = [0, 0];
+  // cursor.setScreenPosition(cursorPosition);
 
   // TODO: 4.1
   // Get the tile that the player is currently selecting, and highlight it
   //selectedTile = ?
-  controller.use('screenPosition', { scale: LEAPSCALE, positioning: 'absolute'}).on('frame', function(frame) {
-    var hand;
-    console.log("controller test");
-    console.log(frame);
-    if(hand = frame.hands[0]){
-      const x = hand.screenPosition()[0];
-      const y = hand.screenPosition()[1];
-      cursorPosition = [x,y];
-      console.log("x,y :"+x+" "+y);
-      cursor.setScreenPosition(cursorPosition);
-    }
-  })
+  console.log(hand);
+  const x = hand.screenPosition()[0];
+  const y = hand.screenPosition()[1];
+  cursorPosition = [x,y];
+  console.log("x,y :"+x+" "+y);
+  cursor.setScreenPosition(cursorPosition);
+
   // SETUP mode
   if (gameState.get('state') == 'setup') {
     background.setContent("<h1>battleship</h1><h3 style='color: #7CD3A2;'>deploy ships</h3>");
