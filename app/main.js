@@ -26,13 +26,23 @@ Leap.loop({ hand: function(hand) {
 
   // TODO: 4.1, Moving the cursor with Leap data
   // Use the hand data to control the cursor's screen position
+
   var cursorPosition = [0, 0];
   cursor.setScreenPosition(cursorPosition);
 
   // TODO: 4.1
   // Get the tile that the player is currently selecting, and highlight it
   //selectedTile = ?
-
+  controller.use('screenPosition', { scale: LEAPSCALE} {positioning: 'abosolute'} )
+  .on('frame', function(frame) {
+    var hand;
+    if(hand = frame.hands[0]){
+      const x = hand.screenPosition()[0];
+      const y = hand.screenPosition()[1];
+      cursorPosition = [x,y];
+      cursor.setScreenPosition(cursorPosition);
+    }
+  })
   // SETUP mode
   if (gameState.get('state') == 'setup') {
     background.setContent("<h1>battleship</h1><h3 style='color: #7CD3A2;'>deploy ships</h3>");
@@ -106,9 +116,9 @@ Leap.loop({ hand: function(hand) {
 
 // processSpeech(transcript)
 //  Is called anytime speech is recognized by the Web Speech API
-// Input: 
+// Input:
 //    transcript, a string of possibly multiple words that were recognized
-// Output: 
+// Output:
 //    processed, a boolean indicating whether the system reacted to the speech or not
 var processSpeech = function(transcript) {
   // Helper function to detect if any commands appear in a string
@@ -238,4 +248,3 @@ var registerCpuShot = function(playerResponse) {
     // nextTurn();
   }
 };
-
