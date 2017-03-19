@@ -247,6 +247,7 @@ var registerPlayerShot = function() {
     if (!result.isGameOver) {
       // TODO: Uncomment nextTurn to move onto the CPU's turn
       console.log('ending player turn');
+      console.log(gameState.isCpuTurn());
       nextTurn();
       console.log(gameState.isCpuTurn());
       console.log(gameState.waitingForPlayer());

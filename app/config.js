@@ -18,4 +18,4 @@ var TURNDELAY = 2500;
 var VOICEINDEX = 17; // UK British Female
 var LEAPSCALE = 0.6;
 var DEBUGSPEECH = true;
-var SKIPSETUP = false;
+var SKIPSETUP = true;
