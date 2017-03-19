@@ -165,7 +165,9 @@ var processSpeech = function(transcript) {
   if (gameState.get('state') == 'setup') {
     // TODO: 4.3, Starting the game with speech
     // Detect the 'start' command, and start the game if it was said
-    if (false) {
+    saidStart = userSaid(transcript, ['start']);
+    if (saidStart) {
+      console.log('said start, starting game');
       gameState.startGame();
       processed = true;
     }
