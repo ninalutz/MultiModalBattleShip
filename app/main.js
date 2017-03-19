@@ -29,6 +29,11 @@ var grabbedOffset = [0, 0];
 // isGrabbing: Is the player's hand currently in a grabbing pose
 var isGrabbing = false;
 
+var playerHitsInARow = 0;
+var computerHitsInARow = 0;
+var playerMissesInARow = 0;
+var computerMissesInARow = 0;
+
 // MAIN GAME LOOP
 // Called every time the Leap provides a new frame of data
 Leap.loop({ hand: function(hand) {
@@ -191,9 +196,23 @@ var processSpeech = function(transcript) {
       // TODO: 4.5, CPU's turn
       // Detect the player's response to the CPU's shot: hit, miss, you sunk my ..., game over
       // and register the CPU's shot if it was said
-      saidSomething = userSaid(transcript, ['hit', 'miss', 'sunk', 'game over'])
+      var saidSomething = userSaid(transcript, ['hit', 'miss', 'sunk', 'game over']);
+      var saidHit = userSaid(transcript, ['hit']);
+      var saidMiss = userSaid(transcript, ['miss']);
+      var saidSunk = userSaid(transcript, ['sunk']);
+      var saidOver = userSaid(transcript, ['game over']);
       if (saidSomething) {
         var response = transcript;
+        if (saidHit) {
+          response = 'hit';
+        } else if (saidMiss) {
+          response = 'miss';
+        } else if (saidSunk) {
+          response = 'sunk';
+        } else {
+          response = 'game over';
+        }
+
         registerCpuShot(response);
 
         processed = true;
@@ -238,9 +257,23 @@ var registerPlayerShot = function() {
     else {
       var isHit = result.shot.get('isHit');
       if (isHit){
-        generateSpeech('hit');
+
+        playerHitsInARow += 1;
+        playerMissesInARow = 0;
+        if (playerHitsInARow >= 2) {
+          generateSpeech('hit oh not again')
+        } else {
+          generateSpeech('hit');
+        }
+
       } else {
-        generateSpeech('miss');
+        playerHitsInARow = 0;
+        playerMissesInARow += 1;
+        if (playerMissesInARow >= 2) {
+          generateSpeech('miss you can not catch me')
+        } else {
+          generateSpeech('miss')
+        }
       }
     }
 
@@ -299,9 +332,27 @@ var registerCpuShot = function(playerResponse) {
   else {
     var isHit = result.shot.get('isHit');
     if (isHit) {
-      generateSpeech('I am coming for you');
+      if (playerResponse == 'miss') {
+        generateSpeech('you are a lying coward')
+      }
+      computerHitsInARow += 1;
+      computerMissesInARow = 0;
+      if (computerHitsInARow >= 2) {
+        generateSpeech('I am on a roll')
+      } else {
+        generateSpeech('I am coming for you');
+      }
     } else {
-      generateSpeech('Next time I will find you')
+      if (playerResponse == 'hit') {
+        generateSpeech('are you sure that I hit you')
+      }
+      computerMissesInARow += 1;
+      computerHitsInARow = 0;
+      if (computerHitsInARow >= 2) {
+        generateSpeech('Stop running away this is so annoying')
+      } else {
+        generateSpeech('Next time I will find you');
+      }
     }
   }
 
