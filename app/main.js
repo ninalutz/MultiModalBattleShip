@@ -46,7 +46,7 @@ Leap.loop({ hand: function(hand) {
   //selectedTile = ?
   console.log(hand);
   const x = hand.screenPosition()[0];
-  const y = hand.screenPosition()[1];
+  const y = hand.screenPosition()[1] + 500;
   cursorPosition = [x,y];
   console.log("x,y :"+x+" "+y);
   cursor.setScreenPosition(cursorPosition);
