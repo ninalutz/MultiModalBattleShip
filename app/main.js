@@ -8,7 +8,7 @@ var cursor = new Cursor();
 var controller = new Leap.Controller();
 controller.connect();
 
-const EventEmitter = require('events')
+//const EventEmitter = require('events')
 const emitter = new MyEmitter();
 
 emitter.setMaxListeners(emitter.getMaxListeners() + 1);
