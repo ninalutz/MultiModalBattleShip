@@ -248,6 +248,8 @@ var registerPlayerShot = function() {
       // TODO: Uncomment nextTurn to move onto the CPU's turn
       console.log('ending player turn');
       nextTurn();
+      console.log(gameState.isCpuTurn());
+      console.log(gameState.waitingForPlayer());
     }
   }
 };
