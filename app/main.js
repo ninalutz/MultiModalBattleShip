@@ -44,9 +44,10 @@ Leap.loop({ hand: function(hand) {
   // TODO: 4.1
   // Get the tile that the player is currently selecting, and highlight it
   //selectedTile = ?
-  controller.use('screenPosition', { scale: LEAPSCALE}, {positioning: 'absolute'}).on('frame', function(frame) {
+  controller.use('screenPosition', { scale: LEAPSCALE, positioning: 'absolute'}).on('frame', function(frame) {
     var hand;
     console.log("controller test");
+    console.log(frame);
     if(hand = frame.hands[0]){
       const x = hand.screenPosition()[0];
       const y = hand.screenPosition()[1];
