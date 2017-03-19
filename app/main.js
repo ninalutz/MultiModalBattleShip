@@ -7,6 +7,7 @@ var cursor = new Cursor();
 
 var controller = new Leap.Controller();
 controller.connect();
+emitter.setMaxListeners(emitter.getMaxListeners() + 2);
 
 // UI SETUP
 setupUserInterface();
