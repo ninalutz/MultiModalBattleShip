@@ -90,7 +90,7 @@ Leap.loop({ hand: function(hand) {
       grabbedShip.setScreenPosition([cursorPosition[0]-grabbedOffset[0], cursorPosition[1]-grabbedOffset[1]]);
       console.log(hand.roll());
       console.log(grabbedOffset);
-      grabbedShip.setScreenRotation(hand.roll());
+      grabbedShip.setScreenRotation(-hand.roll());
     }
 
     // Finished moving a ship. Release it, and try placing it.
