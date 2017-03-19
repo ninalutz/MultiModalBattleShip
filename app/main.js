@@ -255,11 +255,13 @@ var cpuShot;
 var generateCpuShot = function() {
   // Generate a random CPU shot
   cpuShot = gameState.getCpuShot();
+  console.log(cpuShot);
   var tile = cpuShot.get('position');
   var rowName = ROWNAMES[tile.row]; // e.g. "A"
   var colName = COLNAMES[tile.col]; // e.g. "5"
 
   // TODO: Generate speech and visual cues for CPU shot
+  console.log('cpu firing at '+rowName+' '+colName);
   generateSpeech('fire '+rowName+' '+colName);
   blinkTile(tile);
 };
