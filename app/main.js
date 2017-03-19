@@ -175,6 +175,7 @@ var processSpeech = function(transcript) {
 
   else if (gameState.get('state') == 'playing') {
     if (gameState.isPlayerTurn()) {
+      console.log('player turn');
       // TODO: 4.4, Player's turn
       // Detect the 'fire' command, and register the shot if it was said
       saidFire = userSaid(transcript, ['fire']);
@@ -186,6 +187,7 @@ var processSpeech = function(transcript) {
     }
 
     else if (gameState.isCpuTurn() && gameState.waitingForPlayer()) {
+      console.log('cpu turb');
       // TODO: 4.5, CPU's turn
       // Detect the player's response to the CPU's shot: hit, miss, you sunk my ..., game over
       // and register the CPU's shot if it was said
@@ -244,6 +246,7 @@ var registerPlayerShot = function() {
 
     if (!result.isGameOver) {
       // TODO: Uncomment nextTurn to move onto the CPU's turn
+      console.log('ending player turn');
       nextTurn();
     }
   }
@@ -301,6 +304,7 @@ var registerCpuShot = function(playerResponse) {
 
   if (!result.isGameOver) {
     // TODO: Uncomment nextTurn to move onto the player's next turn
+    console.log('ending cpu turn');
     nextTurn();
   }
 };
